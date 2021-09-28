@@ -6,9 +6,9 @@ import os
 ##Create path using os join to join two paths together
 file_to_load = os.path.join("Resources", "election_results.csv")
 
-##1. TotalVotes - int - keep a count of looped rows
-##2. CandidateList - list - if cand not in list, append it
-##3. VotesDict - dict - find key in votes dict (if not found, add it) and increment value (int which represents vote)
+##1. total_votes - int - keep a count of looped rows
+##2. candidate_options - list - if cand not in list, append it
+##3. candidate_votes - dict - find key in votes dict (if not found, add it) and increment value (int which represents vote)
 ##4. PercentageDict - dict- loop through VotesDict, divide by Total, times by 100
 ##5. Winner - str - return cand with highest percentage
 total_votes = 0
@@ -51,5 +51,17 @@ print(f'----------------------------------------------------------\n'
 #Create path for output file and open it
 file_to_write = os.path.join("Analysis","election_analysis.txt")
 with open(file_to_write, "w") as outfile:
-    outfile.write('hi\nhello\nhola')
+    outfile.write(f'Election Results\n'
+    f'--------------------------------\n'
+    f'Total Votes: {total_votes}\n'
+    f'--------------------------------\n')
+    for cand in candidate_votes:
+        candvote = candidate_votes[cand]
+        candpercent = round((candvote/total_votes)*100,2)
+        outfile.write(f'{cand}: {candpercent} ({candvote})\n')
+    outfile.write(f'--------------------------------\n')
+    outfile.write(f'Winner: {winner}\n')
+    outfile.write(f'Winning Vote Count: {winning_count}\n')
+    outfile.write(f'Winning Percentage: {winning_percent}\n')
+    outfile.write(f'--------------------------------\n')
 
